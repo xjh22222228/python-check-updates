@@ -1,5 +1,6 @@
 .idea/
 build/
+pcu_build/
 
 # Binaries for programs and plugins
 *.exe

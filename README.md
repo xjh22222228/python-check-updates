@@ -25,6 +25,15 @@ Find the latest version of your requirements.txt current dependency package.
 
 
 
+## Installation
+Deno ships as a single executable with no dependencies. You can install it using the installers below, or download a release binary from the [releases page](https://github.com/xjh22222228/python-check-updates/releases).
+
+Shell (Mac, Linux):
+```
+curl -fsSL https://raw.githubusercontent.com/xjh22222228/python-check-updates/main/install.sh | bash
+```
+
+
 
 
 

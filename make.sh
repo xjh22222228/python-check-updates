@@ -11,36 +11,35 @@ winBuildName=pcu_${version}_windows_${GOARCH}
 linuxBuildName=pcu_${version}_linux_${GOARCH}
 
 # clear build/
-rm -rf build
-mkdir build
+rm -rf pcu_build
+mkdir pcu_build
 
 build() {
   # Mac os
-  $(
-    GOOS=darwin GOARCH=${GOARCH} go build cmd/pcu.go \
-    && mv pcu build/$macBuildName \
-    && tar -cvf build/${macBuildName}.tar build/${macBuildName} \
-    && gzip build/${macBuildName}.tar \
-    && rm -f build/${macBuildName}
-  )
+  GOOS=darwin GOARCH=${GOARCH} go build cmd/pcu.go
+  upx pcu
+  mv pcu pcu_build/$macBuildName
+  tar -cvf pcu_build/${macBuildName}.tar pcu_build/${macBuildName}
+  gzip pcu_build/${macBuildName}.tar
+  rm -f pcu_build/${macBuildName}
+
 
   # Linux
-  $(
-    GOOS=linux GOARCH=${GOARCH} go build cmd/pcu.go \
-    && mv pcu build/$linuxBuildName \
-    && tar -cvf build/${linuxBuildName}.tar build/${linuxBuildName} \
-    && gzip build/${linuxBuildName}.tar \
-    && rm -f build/${linuxBuildName}
-  )
+  GOOS=linux GOARCH=${GOARCH} go build cmd/pcu.go
+  upx pcu
+  mv pcu pcu_build/$linuxBuildName
+  tar -cvf pcu_build/${linuxBuildName}.tar pcu_build/${linuxBuildName}
+  gzip pcu_build/${linuxBuildName}.tar
+  rm -f pcu_build/${linuxBuildName}
+
 
   # Win
-  $(
-    GOOS=windows GOARCH=${GOARCH} go build cmd/pcu.go \
-    && mv pcu.exe build/${winBuildName}.exe \
-    && zip -j ${winBuildName}.zip build/${winBuildName}.exe \
-    && rm -f build/${winBuildName}.exe \
-    && mv ${winBuildName}.zip build/${winBuildName}.zip
-  )
+  GOOS=windows GOARCH=${GOARCH} go build cmd/pcu.go
+  upx pcu.exe
+  mv pcu.exe pcu_build/${winBuildName}.exe
+  zip -j ${winBuildName}.zip pcu_build/${winBuildName}.exe
+  rm -f pcu_build/${winBuildName}.exe
+  mv ${winBuildName}.zip pcu_build/${winBuildName}.zip
 }
 
 if [ $1 == build ]; then
