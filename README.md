@@ -1,6 +1,6 @@
 <p align="center">
   <p align="center">
-    <img src="media/logo.png" width="200" />
+    <img src="media/logo.png" width="350" />
   </p>
   
   <p align="center">
@@ -10,9 +10,9 @@
   <p align="center"></p>
   
   <p align="center">
-    <img src="https://img.shields.io/github/go-mod/go-version/xjh22222228/ip" />
-    <img src="https://img.shields.io/github/v/release/xjh22222228/ip" />
-    <img src="https://img.shields.io/github/license/xjh22222228/tomato-work" />
+    <img src="https://img.shields.io/github/go-mod/go-version/xjh22222228/python-check-updates" />
+    <img src="https://img.shields.io/github/v/release/xjh22222228/python-check-updates" />
+    <img src="https://img.shields.io/github/license/xjh22222228/python-check-updates" />
   </p>
 </p>
 
@@ -59,6 +59,13 @@ Done in  3 s.
  package, default 'requirements.txt'
 -v, --version                output the version number
 -h, --help                   display help for command
+```
+
+## Example
+```
+$ pcu -f=requirements_test.txt
+
+$ pcu -v
 ```
 
 
