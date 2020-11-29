@@ -19,7 +19,7 @@ install() {
   file_name=pcu_${version}_${goos}_amd64
   suffix=.tar.gz
   download_name="${file_name}${suffix}"
-  pcu_uri=https://github.com/xjh22222228/python-check-updates/releases/download/v${version}/${download_name}
+  pcu_uri=https://github.com.cnpmjs.org/xjh22222228/python-check-updates/releases/download/v${version}/${download_name}
 
   echo $pcu_uri
 
