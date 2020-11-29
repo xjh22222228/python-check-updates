@@ -13,13 +13,13 @@ if ! command -v tar >/dev/null; then
 fi
 
 goos=$(uname)
-version=1.0.0
+version=1.1.0
 
 install() {
   file_name=pcu_${version}_${goos}_amd64
   suffix=.tar.gz
   download_name="${file_name}${suffix}"
-  pcu_uri=https://github.com/xjh22222228/python-check-updates/releases/download/v1.0.0/${download_name}
+  pcu_uri=https://github.com/xjh22222228/python-check-updates/releases/download/v${version}/${download_name}
 
   echo $pcu_uri
 
