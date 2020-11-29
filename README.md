@@ -1,3 +1,7 @@
+This project is pure entertainment.
+
+这个项目纯碎出于娱乐, `pip` 是更好的包管理工具。
+
 <p align="center">
   <p align="center">
     <img src="media/logo.png" width="350" />

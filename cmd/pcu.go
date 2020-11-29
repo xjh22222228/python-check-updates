@@ -44,7 +44,8 @@ func main()  {
 
 			if isCheckLastVersion {
 				v := pcu.CheckLastVersion()
-				fmt.Printf("PCU last version %v", color.GreenString(v))
+				fmt.Printf("\nCurrent version %v\n\n", constants.Version)
+				fmt.Printf("Last version %v\n\n", color.GreenString(v))
 				return nil
 			}
 
