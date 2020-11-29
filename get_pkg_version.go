@@ -4,19 +4,22 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/cheggaaa/pb/v3"
 	"net/http"
-	"regexp"
+	"strings"
 	"sync"
 )
 
 var wg sync.WaitGroup
 
-func reqGetVersion(pkgInfoChan chan PackageInfo, pkgName string) {
+func reqGetVersion(
+	pkgInfoChan chan PackageInfo,
+	pkgName string,
+	oldVersion string,
+) {
 	defer wg.Done()
 
 	version := "0.0.0"
 	url := "https://pypi.org/project/" + pkgName
 	resp, err := http.Get(url)
-	versionRegex := regexp.MustCompile(`\s(\d+\.\d+\.*\d*)`)
 
 	if err != nil {
 		return
@@ -33,16 +36,18 @@ func reqGetVersion(pkgInfoChan chan PackageInfo, pkgName string) {
 		return
 	}
 
-	name := doc.Find(".package-header__name").Text()
-	subMatch := versionRegex.FindStringSubmatch(name)
+	nameVer := doc.Find(".package-header__name").Text()
+	nameVer = strings.TrimSpace(nameVer)
+	subMatch := strings.Split(nameVer, " ")
 
-	if len(subMatch) > 0 {
-		version = subMatch[0]
+	if len(subMatch) >= 2 {
+		version = subMatch[1]
 	}
 
 	pkgInfoChan <- PackageInfo{
 		Name: pkgName,
 		NewVersion: version,
+		OldVersion: oldVersion,
 	}
 }
 
@@ -54,10 +59,10 @@ func GetNewVersion(pkgList []PackageInfo) []PackageInfo {
 
 	for _, v := range pkgList {
 		wg.Add(1)
-		go func(pkgName string) {
-			reqGetVersion(pkgInfoChan, pkgName)
+		go func(pkgName string, oldVersion string) {
+			reqGetVersion(pkgInfoChan, pkgName, oldVersion)
 			bar.Increment()
-		}(v.Name)
+		}(v.Name, v.OldVersion)
 	}
 
 	go func() {

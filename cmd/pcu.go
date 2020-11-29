@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"github.com/urfave/cli/v2"
 	pcu "github.com/xjh22222228/python-check-updates"
 	"github.com/xjh22222228/python-check-updates/constants"
@@ -23,6 +24,12 @@ func main()  {
 				Aliases: []string{"u"},
 				Usage: "update pkg",
 			},
+			&cli.BoolFlag{
+				Name: "check",
+				Value: false,
+				Aliases: []string{"c"},
+				Usage: "Check the latest version",
+			},
 			&cli.StringFlag{
 				Name: "file",
 				Value: "requirements.txt",
@@ -33,6 +40,13 @@ func main()  {
 
 		Action: func(c *cli.Context) error {
 			depFileName := c.String("f")
+			isCheckLastVersion := c.Bool("c")
+
+			if isCheckLastVersion {
+				v := pcu.CheckLastVersion()
+				fmt.Printf("PCU last version %v", color.GreenString(v))
+				return nil
+			}
 
 			beginTimestamp := time.Now().Unix()
 			pkgList := pcu.ReadRequirements(depFileName)

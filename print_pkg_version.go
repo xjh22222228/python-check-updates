@@ -16,39 +16,56 @@ func fillVersion(v string, repeatCount int) string {
 
 func EchoPrintVersion(pkgList []PackageInfo)  {
 	maxNameLen := 0
-	maxVersionLen := 0
+	maxNewVersionLen := 0
+	maxOldVersionLen := 0
 	marginLeft := 3
 
 	for _, v := range pkgList {
 		nameLen := len(v.Name)
-		versionLen := len(v.NewVersion)
+		newVersionLen := len(v.NewVersion)
+		oldVersionLen := len(v.OldVersion)
+
 		if nameLen > maxNameLen {
 			maxNameLen = nameLen
 		}
-		if versionLen > maxVersionLen {
-			maxVersionLen = versionLen
+		if newVersionLen > maxNewVersionLen {
+			maxNewVersionLen = newVersionLen
+		}
+		if oldVersionLen > maxOldVersionLen {
+			maxOldVersionLen = oldVersionLen
 		}
 	}
 
 	for _, v := range pkgList {
-		nameLen := len(v.Name)
-		versionLen := len(v.NewVersion)
-
 		pkgName := v.Name
-		pkgVersion := v.NewVersion
+		pkgNewVersion := v.NewVersion
+		pkgOldVersion := v.OldVersion
+
+		nameLen := len(pkgName)
+		newVersionLen := len(pkgNewVersion)
+		oldVersionLen := len(pkgOldVersion)
 
 		diffNameCount := maxNameLen + marginLeft - nameLen
-		diffVersionCount := maxVersionLen - versionLen
+		diffNewVersionCount := maxNewVersionLen - newVersionLen
+		diffOldVersionCount := maxOldVersionLen - oldVersionLen
 
 		if diffNameCount != 0 {
 			pkgName = fillName(pkgName, diffNameCount)
 		}
 
-		if diffVersionCount != 0 {
-			pkgVersion = fillVersion(pkgVersion, diffVersionCount)
+		if diffNewVersionCount != 0 {
+			pkgNewVersion = fillVersion(pkgNewVersion, diffNewVersionCount)
 		}
 
-		fmt.Print(" ", pkgName + " →   ")
-		color.Yellow(pkgVersion)
+		if diffOldVersionCount != 0 {
+			pkgOldVersion = fillVersion(pkgOldVersion, diffOldVersionCount)
+		}
+
+		fmt.Printf(
+			" %v    %v    →  %v\n",
+			pkgName,
+			pkgOldVersion,
+			color.YellowString(pkgNewVersion),
+		)
 	}
 }

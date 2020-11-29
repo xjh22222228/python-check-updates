@@ -13,7 +13,3 @@ jobs:
     - name: Run pcu.go
       run: |
         go run cmd/pcu.go -f=requirements_test.txt
-    - name: Install and Run
-      run: |
-        curl -fsSL https://raw.githubusercontent.com/xjh22222228/python-check-updates/main/install.sh | bash
-        pcu

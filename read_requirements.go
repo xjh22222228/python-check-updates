@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 )
 
 type PackageInfo struct {
@@ -19,7 +20,7 @@ type PackageInfo struct {
 // ReadRequirements("requirements.txt")
 func ReadRequirements(fileName string) []PackageInfo {
 	cwd, err := os.Getwd()
-	splitRegex := regexp.MustCompile("[==|>=|<=]")
+	splitRegex := regexp.MustCompile("==|>=|<=|~=|>|<")
 	trimRegex := regexp.MustCompile(`\s+`)
 
 	if err != nil {
@@ -32,7 +33,7 @@ func ReadRequirements(fileName string) []PackageInfo {
 	color.Green("Checking " + absPath + "\n")
 
 	if err != nil {
-		log.Panicln("File open failed ", err)
+		log.Panicln("File open failed ")
 	}
 
 	defer file.Close()
@@ -53,6 +54,7 @@ func ReadRequirements(fileName string) []PackageInfo {
 		if pkgName != "" {
 			pkgList = append(pkgList, PackageInfo{
 				Name: pkgName,
+				OldVersion: strings.Replace(inputStr, pkgName, "", -1),
 			})
 		}
 
