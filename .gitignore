@@ -1,9 +1,12 @@
 .idea/
 build/
 pcu_build/
+.DS_Store
+.vscode
 
 # Binaries for programs and plugins
 *.exe
+*.gz
 *.exe~
 *.dll
 *.so

@@ -21,12 +21,18 @@ install() {
   download_name="${file_name}${suffix}"
   pcu_uri=https://github.com.cnpmjs.org/xjh22222228/python-check-updates/releases/download/v${version}/${download_name}
 
-  echo $pcu_uri
+  echo -e "Download ${pcu_uri} \n"
 
   # Remove current pkg
   rm -f "$download_name"
 
   curl "$pcu_uri" -OL --progress --retry 2
+
+  if [ $? -ne 0 ]; then
+    rm -f "${download_name}"
+    echo "Download failed"
+    exit 1
+  fi
 
   tar -xvf "${download_name}"
 
@@ -43,7 +49,7 @@ install() {
   rm -rf pcu_build
 }
 
-if [[ $goos == "Darwin" ]]; then
+if [ $goos = "Darwin" ]; then
   goos=darwin
 else
   goos=linux
@@ -52,6 +58,7 @@ fi
 install
 
 
-echo "Python-check-updates was installed successfully"
+echo -e "\n\033[1;32mPython-check-updates was installed successfully\033[0m"
 
-echo "Run pcu -h"
+echo -e "\nRun \"pcu -h\" \n"
+

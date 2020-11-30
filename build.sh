@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# ./make.sh build
-
 version=1.1.0
 
 GOARCH=amd64
@@ -41,7 +39,3 @@ build() {
   rm -f pcu_build/${winBuildName}.exe
   mv ${winBuildName}.zip pcu_build/${winBuildName}.zip
 }
-
-if [ $1 == build ]; then
-  build
-fi
