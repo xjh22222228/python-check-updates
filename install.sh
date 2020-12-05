@@ -13,7 +13,7 @@ if ! command -v tar >/dev/null; then
 fi
 
 goos=$(uname)
-version=1.1.0
+version=1.2.0
 
 install() {
   file_name=pcu_${version}_${goos}_amd64
