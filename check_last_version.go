@@ -2,6 +2,7 @@ package python_check_updates
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/xjh22222228/python-check-updates/constants"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +14,8 @@ type lastVersion struct {
 }
 
 func CheckLastVersion() string {
+	fmt.Println("Fetching...")
+
 	url := "https://api.github.com/repos/xjh22222228/python-check-updates/releases/latest"
 
 	resp, err := http.Get(url)

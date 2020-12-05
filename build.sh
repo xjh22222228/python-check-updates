@@ -39,3 +39,5 @@ build() {
   rm -f pcu_build/${winBuildName}.exe
   mv ${winBuildName}.zip pcu_build/${winBuildName}.zip
 }
+
+build

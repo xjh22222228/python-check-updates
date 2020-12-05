@@ -26,7 +26,7 @@ install() {
   # Remove current pkg
   rm -f "$download_name"
 
-  curl "$pcu_uri" -OL --progress --retry 2
+  curl "$pcu_uri" -OL --progress --retry 2 2>&1
 
   if [ $? -ne 0 ]; then
     rm -f "${download_name}"

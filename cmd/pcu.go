@@ -19,10 +19,10 @@ func main()  {
 
 		Flags: []cli.Flag {
 			&cli.BoolFlag{
-				Name: "update",
-				Value: true,
+				Name: "upgrade",
+				Value: false,
 				Aliases: []string{"u"},
-				Usage: "update pkg",
+				Usage: "Upgrade python-check-updates last version",
 			},
 			&cli.BoolFlag{
 				Name: "check",
@@ -41,6 +41,12 @@ func main()  {
 		Action: func(c *cli.Context) error {
 			depFileName := c.String("f")
 			isCheckLastVersion := c.Bool("c")
+			isUpgrade := c.Bool("u")
+
+			if isUpgrade {
+				pcu.Upgrade()
+				return nil
+			}
 
 			if isCheckLastVersion {
 				v := pcu.CheckLastVersion()

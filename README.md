@@ -71,9 +71,10 @@ Done in  1 s.
 ```
 -f, --file                   Specify the file name of the check dependency
  package, default 'requirements.txt'
--v, --version                output the version number
+-u, --upgrade                Upgrade python-check-updates
+-v, --version                Output the version number
 -c, --check                  Check the latest version
--h, --help                   display help for command
+-h, --help                   Display help for command
 ```
 
 ## Example
